@@ -1,0 +1,25 @@
+{
+  "name": "fun-fact-check-bot",
+  "version": "0.1.0",
+  "description": "Twitter bot that rates the fun-ness of 'Fun fact' tweets using rudimentary sentiment analysis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "twit": "^2.2.5",
+    "sentiment": "^3.0.1"
+  },
+  "engines": {
+    "node": "6.9.1"
+  },
+  "repository": {
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "twitter",
+    "twitterbot",
+    "bot"
+  ]
+}
