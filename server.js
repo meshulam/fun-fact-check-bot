@@ -8,7 +8,7 @@ const config = {
     access_token: process.env.ACCESS_TOKEN,
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
   },
-  delaySeconds: 1800,
+  delaySeconds: process.env.DELAY_SEC || 3600,
   enabled: true,
 };
 
@@ -67,11 +67,16 @@ function attemptUpdate() {
   }
 
   T.get('search/tweets', query, function(err, data, response) {
-    for (let tweet of data.statuses) {
-      if (shouldReply(tweet)) {
-        console.log("replying to ", tweet.text);
-        replyTo(tweet);
-        break;
+    if (err) {
+      console.log('error searching for tweets: ', err);
+    } else {
+      for (let tweet of data.statuses) {
+        if (shouldReply(tweet)) {
+          const replyDelay = 3*60;
+          console.log("Scheduling reply to ", tweet.text);
+          setTimeout(replyTo, replyDelay, tweet);
+          break;
+        }
       }
     }
     setTimeout(attemptUpdate, config.delaySeconds*1000);
